@@ -1,52 +1,58 @@
 public class Background implements SubjectActions {
     @Override
-    public void shrink(String person) {
-        System.out.println(Subjects.HEART.getTitle() + " " + person + " сжалось от ужаса.");
+    public void shrink(Subjects subjects, People person) {
+        System.out.println(subjects.getTitle() + " " + person.getName() + " сжалось от ужаса.");
+        person.mood = "очень испуганное";
     }
 
     @Override
-    public void stickOut(String person) {
-        System.out.println(Subjects.BONE.getTitle() + " " + person + " торчит наружу.");
+    public void stickOut(Subjects subjects, People person) {
+
+        switch (subjects) {
+            case BONE -> {
+                System.out.println(Subjects.BONE.getTitle() + " " + person.getName() + " торчит наружу.");
+                person.hp = person.hp - 100;
+                System.out.println("hp " + person.getName() + " понизился");
+                person.mood = "полуживое";
+            }
+            default -> {
+                System.out.println(subjects.getTitle() + " " + person.getName() + " торчит наружу.");
+            }
+        }
+
     }
 
     @Override
-    public void pierce(String person) {
-        System.out.println(Subjects.BRANCH.getTitle() + " вонзилась в плечо " + person + ".");
+    public void pierce(Subjects subjects, People person) {
+        System.out.println(subjects.getTitle() + " вонзилась в плечо " + person.getName() + ".");
+        person.hp = person.hp - 100;
+        System.out.println("hp " + person.getName() + " понизился");
+        person.mood = "болезненное";
     }
 
     @Override
-    public void dodge() {
-        System.out.println(Subjects.PATH.getTitle() + " петляла среди " + Places.TREES.getTitle() + ".");
+    public void dodge(Subjects something, Places location) {
+        System.out.println(something.getTitle() + " петляла среди " + location.getTitle() + ".");
     }
 
     @Override
-    public void dive() {
-        System.out.println(Subjects.PATH.getTitle() + " нырнула в " + Places.FOREST.getTitle() + ".");
+    public void stick(Subjects subjects, People person) {
+        System.out.println(subjects.getTitle() + " липла к ступням " + person.getName() + ".");
+        person.mood = "склизское";
     }
 
-    @Override
-    public void stick(String person) {
-        System.out.println(Subjects.GOUND.getTitle() + " липла к ступням " + person + ".");
-    }
-
-    @Override
-    public void rush(String person) {
-        System.out.println(Subjects.THOUGHT.getTitle() + " пронеслась в голове " + person + ".");
-    }
 }
 
 interface SubjectActions {
-    public void shrink(String person);
+    void shrink(Subjects subjects, People person);
 
-    public void stickOut(String person);
+    void stickOut(Subjects subjects, People person);
 
-    public void pierce(String person);
+    void pierce(Subjects subjects, People person);
 
-    public void dodge();
+    void dodge(Subjects something, Places location);
 
-    public void dive();
 
-    public void stick(String person);
+    void stick(Subjects subjects, People person);
 
-    public void rush(String person);
 }

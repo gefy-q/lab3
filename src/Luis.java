@@ -1,75 +1,107 @@
 public class Luis extends People implements LuisActions {
     public Luis() {
         name = "Льюис";
-        places = Places.GARAGE;
+        location = Places.HOUSE;
         System.out.println("Персонаж " + name + " создан.");
     }
 
-    @Override
-    public void goOut() {
-        System.out.println(name + " вышел из " + places.getTitle() + ".");
+
+    public void stumbled(Subjects subjects) {
+        switch (subjects) {
+            case BONE -> {
+                hp = hp - 50;
+                System.out.println("hp " + name + " понизился");
+            }
+        }
     }
 
     @Override
-    public void see(Pasko pasko) {
-        System.out.println(name + " увидел " + pasko.getName() + ".");
+    public void goOut(Places location2) {
+        location = location2;
+        System.out.println(name + " вышел из " + location.getTitle() + " и попал в " + location2.getTitle());
+    }
+
+    @Override
+    public void see(People character) {
+        System.out.println(name + " увидел " + character.getName() + ".");
     }
 
     @Override
     public void frightened() {
         System.out.println(name + " испугался.");
+        mood = "испуганное";
     }
 
     @Override
     public void freeze() {
         System.out.println(name + " замер на месте.");
+        mood = "напряженное";
     }
 
     @Override
-    public void feel() {
-        System.out.println(name + " почувствовал " + Subjects.NEEDLE.getTitle() + ".");
+    public void feel(Subjects subjects) {
+        switch (subjects) {
+            case NEEDLE -> {
+                hp = hp - 50;
+                System.out.println("hp понизился");
+            }
+            default -> {
+                System.out.println(name + " почувствовал " + subjects.getTitle() + ".");
+            }
+        }
     }
 
     @Override
-    public void go() {
-        System.out.println(name + " идет в " + Places.FOREST.getTitle() + ".");
+    public void go(Places location2, People character) {
+        System.out.println(name + " идет в " + location2.getTitle() + " за " + character.getName());
+        location = location2;
+        character.location = location2;
     }
 
     @Override
 
-    public void cling(String think) {
-        System.out.println(name + " цеплялся за " + Subjects.THOUGHT.getTitle() + ", что " + think);
+    public void cling(Subjects subjects) {
+        switch (subjects) {
+            case THOUGHT -> {
+                System.out.print(name + " цеплялся за " + subjects.getTitle() + ", что ");
+            }
+            default -> {
+                System.out.println(name + " цеплялся за " + subjects.getTitle());
+            }
+        }
     }
 
     @Override
     public void be() {
-        System.out.println(name + " сейчас " + Places.HOUSE.getTitle() + ".");
+        System.out.println(name + " сейчас " + location + ".");
     }
 
     @Override
     public void wince() {
         System.out.println(name + " поморщился.");
+        mood = "подавленное";
     }
 }
 
+
 interface LuisActions {
-    public void goOut();
+    void goOut(Places location2);
 
-    public void see(Pasko pasko);
+    void see(People character);
 
-    public void frightened();
+    void frightened();
 
-    public void freeze();
+    void freeze();
 
-    public void feel();
+    void feel(Subjects subjects);
 
-    public void go();
+    void go(Places location2, People character);
 
-    public void cling(String think);
+    void cling(Subjects subjects);
 
-    public void be();
+    void be();
 
-    public void wince();
+    void wince();
 
 
 }

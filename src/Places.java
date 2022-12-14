@@ -6,7 +6,8 @@ public enum Places {
     BED("Постель"),
     HILL("Холм"),
     TREES("Деревья"),
-    FOREST("Подлесок");
+    FOREST("Подлесок"),
+    UNKOWN("Неизвестно");
 
     private String title;
 
@@ -16,5 +17,11 @@ public enum Places {
 
     public String getTitle() {
         return title;
+    }
+}
+
+abstract class Location{
+    String getPlace(Places places) {
+        return places.getTitle();
     }
 }

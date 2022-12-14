@@ -1,66 +1,33 @@
 public class Main {
     public static void main(String[] args) {
-        String think = "это все-таки сон.";
         Pasko pasko = new Pasko();
         Luis luis = new Luis();
         Background background = new Background();
         pasko.disappear();
-        luis.goOut();
+        luis.goOut(Places.FOREST);
+        System.out.println("Локация Льюиса сейчас " + luis.getLocation());
+        System.out.println("Настроение Льюиса сейчас " + luis.getMood());
+        luis.goOut(Places.LAWN);
         luis.see(pasko);
-        pasko.stay();
+        pasko.stay(Places.LAWN);
         luis.frightened();
+        System.out.println("Настроение Льюиса сейчас " + luis.getMood());
         luis.freeze();
-        pasko.look();
-        background.shrink(luis.getName());
-        background.stickOut(pasko.getName());
-        luis.goOut();
-        luis.feel();
-        luis.be();
-        background.pierce(luis.getName());
-        luis.wince();
+        pasko.look(luis);
+        background.shrink(Subjects.HEART, luis);
+        background.stickOut(Subjects.BONE, pasko);
+        luis.goOut(Places.HOUSE);
+        luis.feel(Subjects.NEEDLE);
+        luis.go(Places.FOREST, pasko);
+        System.out.println("Локация Льюиса сейчас " + luis.getLocation());
+        System.out.println("Локация Паско сейчас " + pasko.getLocation());
+        background.pierce(Subjects.BRANCH, luis);
+        System.out.println("Настроение Льюиса сейчас " + luis.getMood());
         luis.frightened();
-        background.dodge();
-        background.dive();
-        background.stick(luis.getName());
-        background.rush(luis.getName());
-        luis.cling(think);
+        background.dodge(Subjects.PATH, Places.TREES);
+        background.stick(Subjects.GOUND, luis);
+        System.out.println("Настроение Льюиса сейчас " + luis.getMood());
+        luis.cling(Subjects.THOUGHT);
+        System.out.println("это все-таки сон.");
     }
 }
-
-
-abstract class People {
-    protected String name;
-    protected Places places;
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj.hashCode() == this.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Персонаж " + this.getName();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode() + this.getName().hashCode();
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
